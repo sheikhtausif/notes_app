@@ -87,8 +87,9 @@ const NoteState = ({ children }) => {
     }
 
     // Delete a note
-    const deleteNote = () => {
-
+    const deleteNote = (id) => {
+        const newNotes = notes.filter(note => note._id !== id)
+        setNotes(newNotes)
     }
 
     // Edit a note
