@@ -73,9 +73,29 @@ const NoteState = ({ children }) => {
 
     const [notes, setNotes] = useState(initNotes)
 
+    // Add a note
+    const addNote = (note) => {
+        // const note = {
+        //     "_id": "6133f359bc5e9da19e58d729",
+        //     "user": "6133e1cbb83c92f53f044c72",
+        //     "title": "helloAdd",
+        //     "description": "This is my first note",
+        //     "tag": "personal",
+        //     "__v": 0
+        // }
+        setNotes([...notes, note])
+    }
+
+    // Delete a note
+    const deleteNote = () => {
+
+    }
+
+    // Edit a note
+    const editNote = () => { }
 
     return (
-        <NoteContext.Provider value={{ notes, setNotes }}>
+        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote }}>
             {children}
         </NoteContext.Provider>
     )
