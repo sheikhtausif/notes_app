@@ -13,7 +13,7 @@ router.get('/allNotes', fetchUser, async (req, res) => {
         res.json(notes)
 
     } catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
         res.status(500).send("internal server error");
     }
 })
@@ -40,7 +40,7 @@ router.post('/addNote', fetchUser,
 
             res.json(saveNote)
         } catch (error) {
-            console.log(error.message)
+            // console.log(error.message)
             res.status(500).send("internal server error");
         }
 
@@ -69,7 +69,7 @@ router.patch('/updateNote/:id', fetchUser,
             res.json(note)
 
         } catch (error) {
-            console.log(error.message)
+            // console.log(error.message)
             res.status(500).send("internal server error");
         }
     })
@@ -91,7 +91,7 @@ router.delete('/deleteNote/:id', fetchUser,
             res.json({ success: "Note has been deleted successfully!", note: note })
 
         } catch (error) {
-            console.log(error.message)
+            // console.log(error.message)
             res.status(500).send("internal server error");
         }
     })

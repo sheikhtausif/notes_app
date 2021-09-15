@@ -1,102 +1,96 @@
 import React from 'react'
 import { useState } from 'react'
+import { useEffect } from 'react'
 import NoteContext from './NoteContext'
+import axios from 'axios'
 
 const NoteState = ({ children }) => {
+    const host = "http://localhost:5000"
+    const [notes, setNotes] = useState([])
 
-    const initNotes = [
-        {
-            "_id": "6133f357bc5e9da19e58d733",
-            "user": "6133e1cbb83c92f53f044c72",
-            "title": "hello",
-            "description": "This is my first note",
-            "tag": "personal",
-            "__v": 0
-        },
-        {
-            "_id": "6133f359bc5e9da19e58d735",
-            "user": "6133e1cbb83c92f53f044c72",
-            "title": "hello",
-            "description": "This is my first note",
-            "tag": "personal",
-            "__v": 0
-        },
-        {
-            "_id": "6133f357bc5e9da19e58d734",
-            "user": "6133e1cbb83c92f53f044c72",
-            "title": "hello",
-            "description": "This is my first note",
-            "tag": "personal",
-            "__v": 0
-        },
-        {
-            "_id": "6133f359bc5e9da19e58d736",
-            "user": "6133e1cbb83c92f53f044c72",
-            "title": "hello",
-            "description": "This is my first note",
-            "tag": "personal",
-            "__v": 0
-        },
-        {
-            "_id": "6133f357bc5e9da19e58d737",
-            "user": "6133e1cbb83c92f53f044c72",
-            "title": "hello",
-            "description": "This is my first note",
-            "tag": "personal",
-            "__v": 0
-        },
-        {
-            "_id": "6133f359bc5e9da19e58d738",
-            "user": "6133e1cbb83c92f53f044c72",
-            "title": "hello",
-            "description": "This is my first note",
-            "tag": "personal",
-            "__v": 0
-        },
-        {
-            "_id": "6133f359bc5e9da19e58d739",
-            "user": "6133e1cbb83c92f53f044c72",
-            "title": "hello",
-            "description": "This is my first note",
-            "tag": "personal",
-            "__v": 0
-        },
-        {
-            "_id": "6133f359bc5e9da19e58d729",
-            "user": "6133e1cbb83c92f53f044c72",
-            "title": "hello",
-            "description": "This is my first note",
-            "tag": "personal",
-            "__v": 0
-        },
-    ]
+    useEffect(() => {
+        getAllNotes()
+    }, [])
 
-    const [notes, setNotes] = useState(initNotes)
-
-    // Add a note
-    const addNote = (note) => {
-        // const note = {
-        //     "_id": "6133f359bc5e9da19e58d729",
-        //     "user": "6133e1cbb83c92f53f044c72",
-        //     "title": "helloAdd",
-        //     "description": "This is my first note",
-        //     "tag": "personal",
-        //     "__v": 0
-        // }
-        setNotes([...notes, note])
+    const getAllNotes = async () => {
+        const { data } = await axios.get(`${host}/api/notes/allNotes`, {
+            headers: {
+                'auth-token': localStorage.getItem('token')
+            },
+        })
+        setNotes(data)
     }
 
-    // Delete a note
-    const deleteNote = (id) => {
+    // ! Add a note
+    const addNote = async (note) => {
+
+        const { data } = await axios.post(`${host}/api/notes/addNote`, note, {
+            headers: {
+                'auth-token': localStorage.getItem('token')
+            },
+        })
+        setNotes([...notes, data])
+    }
+
+
+    // ! Delete a note
+    const deleteNote = async (id) => {
+
+        await axios.delete(`${host}/api/notes/deleteNote/${id}`, {
+            headers: {
+                'auth-token': localStorage.getItem('token')
+            },
+        })
         const newNotes = notes.filter(note => note._id !== id)
         setNotes(newNotes)
     }
 
-    // Edit a note
-    const editNote = () => { }
+    // ! Edit a note
+    const editNote = async (note) => {
+        // console.log('update note:', note)
+
+        // await axios.patch(`${host}/api/notes/updateNote/${note._id}`, { title: note.title, description: note.description }, {
+        //     headers: {
+        //         'auth-token': localStorage.getItem('token')
+        //     },
+        // })
+        // const updatedNotes = JSON.parse(JSON.stringify(notes))
+        // for (let index = 0; index < updatedNotes.length; index++) {
+        //     const element = updatedNotes[index];
+        //     if (element._id === note._id) {
+        //         updatedNotes[0].title = note.title
+        //         updatedNotes[0].description = note.description
+        //         break
+        //     }
+        // }
+        // setNotes(updatedNotes)
+
+        const response = await fetch(`${host}/api/notes/updateNote/${note._id}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': "application/json",
+                'auth-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify(note)
+        })
+        // eslint-disable-next-line
+        const json = await response.json()
+        // console.log('data from update:', json)
+        const updatedNotes = JSON.parse(JSON.stringify(notes))
+        for (let index = 0; index < updatedNotes.length; index++) {
+            const element = updatedNotes[index];
+            if (element._id === note._id) {
+                updatedNotes[0].title = note.title
+                updatedNotes[0].description = note.description
+                break
+            }
+
+        }
+        setNotes(updatedNotes)
+    }
 
     return (
-        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote }}>
+        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getAllNotes }}>
             {children}
         </NoteContext.Provider>
     )

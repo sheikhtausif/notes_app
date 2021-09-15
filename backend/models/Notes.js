@@ -14,14 +14,8 @@ const notesSchema = new Schema({
         type: String,
         require: true,
     },
-    tag: {
-        type: String,
-        default: 'General'
-    },
-    date: {
-        type: Date,
-        require: Date.now,
-    },
-});
+},
+    { timestamps: true, versionKey: false }
+);
 
 module.exports = mongoose.model('notes', notesSchema)
