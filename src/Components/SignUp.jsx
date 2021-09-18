@@ -23,7 +23,7 @@ const SignUp = ({ showAlert }) => {
 
         if (json.success) {
             // save the token and redirect to the home page
-            localStorage.setItem('token', json.authToken)
+            // localStorage.setItem('token', json.authToken)
             history.push('/login')
             showAlert("account created successfully", 'success')
         }

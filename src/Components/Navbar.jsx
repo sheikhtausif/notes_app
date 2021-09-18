@@ -15,7 +15,6 @@ const Navbar = () => {
 
     useEffect(() => {
         setUsername(localStorage.getItem('username'))
-
     }, [])
 
     return (

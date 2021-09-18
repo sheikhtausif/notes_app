@@ -10,6 +10,7 @@ const NoteState = ({ children }) => {
 
     useEffect(() => {
         getAllNotes()
+        // eslint-disable-next-line
     }, [])
 
     const getAllNotes = async () => {
@@ -47,23 +48,6 @@ const NoteState = ({ children }) => {
 
     // ! Edit a note
     const editNote = async (note) => {
-        // console.log('update note:', note)
-
-        // await axios.patch(`${host}/api/notes/updateNote/${note._id}`, { title: note.title, description: note.description }, {
-        //     headers: {
-        //         'auth-token': localStorage.getItem('token')
-        //     },
-        // })
-        // const updatedNotes = JSON.parse(JSON.stringify(notes))
-        // for (let index = 0; index < updatedNotes.length; index++) {
-        //     const element = updatedNotes[index];
-        //     if (element._id === note._id) {
-        //         updatedNotes[0].title = note.title
-        //         updatedNotes[0].description = note.description
-        //         break
-        //     }
-        // }
-        // setNotes(updatedNotes)
 
         const response = await fetch(`${host}/api/notes/updateNote/${note._id}`, {
             method: "PATCH",
@@ -84,7 +68,6 @@ const NoteState = ({ children }) => {
                 updatedNotes[0].description = note.description
                 break
             }
-
         }
         setNotes(updatedNotes)
     }
