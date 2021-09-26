@@ -27,8 +27,13 @@ const Login = ({ showAlert }) => {
         if (json.success) {
             // save the token and redirect to the home page
             localStorage.setItem('token', json.authToken)
-            localStorage.setItem('username', json.name)
-            setUsername(json.name)
+            let firstName = ""
+            for (let i = 0; i < json.name.length; i++) {
+                if (json.name[i] === " ") break;
+                else firstName += json.name[i]
+            }
+            localStorage.setItem('username', firstName)
+            setUsername(firstName)
             showAlert("login success", "success")
             history.push('/')
         }
