@@ -9,9 +9,9 @@ const SignUp = ({ showAlert }) => {
     const handleChange = (e) => { setUserData({ ...userData, [e.target.name]: e.target.value }) }
 
     const handleSubmit = async (e) => {
-        const { name, email, password, confirmPassword } = userData
         e.preventDefault()
-        if (password === !confirmPassword) return showAlert("password is not matched", 'danger')
+        const { name, email, password } = userData
+
         const response = await fetch(`http://localhost:5000/api/auth/createUser`, {
             method: "POST",
             headers: {
@@ -48,10 +48,6 @@ const SignUp = ({ showAlert }) => {
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type="password" className="form-control" value={userData.password} name="password" placeholder="Enter your password" id="password" onChange={handleChange} />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="confirmPassword" className="form-label">Confirm password</label>
-                    <input type="password" className="form-control" value={userData.confirmPassword} name="confirmPassword" placeholder="Confirm your password" id="confirmPassword" onChange={handleChange} />
                 </div>
                 <button type="submit" className="btn btn-primary">SignUp</button>
             </form>
