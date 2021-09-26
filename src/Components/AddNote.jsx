@@ -1,8 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
-import NoteContext from '../Context/notes/NoteContext'
-
+import { NoteContext } from '../Context/NoteStateContext'
 
 const AddNote = ({ showAlert }) => {
     const [note, setNote] = useState({ title: '', description: '' })

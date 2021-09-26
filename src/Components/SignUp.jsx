@@ -9,8 +9,9 @@ const SignUp = ({ showAlert }) => {
     const handleChange = (e) => { setUserData({ ...userData, [e.target.name]: e.target.value }) }
 
     const handleSubmit = async (e) => {
-        const { name, email, password } = userData
+        const { name, email, password, confirmPassword } = userData
         e.preventDefault()
+        if (password === !confirmPassword) return showAlert("password is not matched", 'danger')
         const response = await fetch(`http://localhost:5000/api/auth/createUser`, {
             method: "POST",
             headers: {

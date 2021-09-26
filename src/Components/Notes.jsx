@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import NoteContext from '../Context/notes/NoteContext'
+import { NoteContext } from '../Context/NoteStateContext'
 import AddNote from './AddNote'
 import NoteItem from './NoteItem'
 
@@ -19,7 +19,8 @@ const Notes = ({ showAlert }) => {
     useEffect(() => {
         if (localStorage.getItem('token')) getAllNotes()
         else history.push('/login')
-    }, [getAllNotes, history])
+        // eslint-disable-next-line
+    }, [])
 
     const updateNote = (note) => {
         ref.current.click()
@@ -72,7 +73,7 @@ const Notes = ({ showAlert }) => {
 
             <div className="row my-3">
                 {notes.length > 0 ? <h2 style={{ textAlign: 'center' }}>Your Notes</h2> : <h2 style={{ textAlign: 'center', marginTop: '20px' }}>Add your first note</h2>}
-                {notes.map(note => (
+                {notes?.map(note => (
                     <NoteItem key={note._id} note={note} updateNote={updateNote} showAlert={showAlert} />
                 ))}
             </div>

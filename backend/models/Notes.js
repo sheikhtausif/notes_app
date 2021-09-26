@@ -17,5 +17,5 @@ const notesSchema = new Schema({
 },
     { timestamps: true, versionKey: false }
 );
-
-module.exports = mongoose.model('notes', notesSchema)
+const Notes = mongoose.model('notes', notesSchema)
+module.exports = Notes

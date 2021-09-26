@@ -1,16 +1,19 @@
 import React from 'react'
+import { createContext } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import NoteContext from './NoteContext'
 import axios from 'axios'
 
-const NoteState = ({ children }) => {
+export const NoteContext = createContext()
+
+const NoteStateContext = ({ children }) => {
     const host = "http://localhost:5000"
     const [notes, setNotes] = useState([])
+    const [username, setUsername] = useState("")
 
     useEffect(() => {
-        getAllNotes()
-        // eslint-disable-next-line
+        if (localStorage.getItem('token'))
+            getAllNotes()
     }, [])
 
     const getAllNotes = async () => {
@@ -73,10 +76,10 @@ const NoteState = ({ children }) => {
     }
 
     return (
-        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getAllNotes }}>
+        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getAllNotes, username, setUsername }}>
             {children}
         </NoteContext.Provider>
     )
 }
 
-export default NoteState
+export default NoteStateContext

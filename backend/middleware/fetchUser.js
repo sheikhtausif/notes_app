@@ -1,6 +1,5 @@
+require('dotenv').config()
 var jwt = require('jsonwebtoken');
-const JWT_SECRET_KEY = 'programming'
-// const { JWT_SECRET_KEY } = process.env
 
 
 const fetchUser = (req, res, next) => {
@@ -9,7 +8,7 @@ const fetchUser = (req, res, next) => {
         res.status(401).send({ error: 'invalid token' })
     }
     try {
-        const data = jwt.verify(token, JWT_SECRET_KEY)
+        const data = jwt.verify(token, process.env.JWT_SECRET_KEY)
         req.user = data.user
         next()
     } catch (error) {

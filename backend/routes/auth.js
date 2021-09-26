@@ -5,15 +5,15 @@ const { body, validationResult } = require('express-validator');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var fetchUser = require('../middleware/fetchUser');
-
-const JWT_SECRET_KEY = 'programming'
+require('dotenv').config()
+// const JWT_SECRET_KEY = 'programming'
 
 // Route: 3 -  Create a user POST "/api/auth/createUser", No login required 
 router.post('/createUser',
     [
         body('name', "Name can't be less than 4 characters").isLength({ min: 4 }),
         body('email', "Email should be unique").isEmail(),
-        body('password', "password is too short min 5 characters").isLength({ min: 5 }),
+        body('password', "password is too short min 5 characters").isLength({ min: 3 }),
     ],
     async (req, res) => {
         let success = false;
@@ -40,7 +40,7 @@ router.post('/createUser',
             const data = {
                 user: { id: user.id }
             }
-            const authToken = jwt.sign(data, JWT_SECRET_KEY)
+            const authToken = jwt.sign(data, process.env.JWT_SECRET_KEY)
             success = true
             res.json({ success, authToken })
             // res.json(user)
@@ -80,7 +80,7 @@ router.post('/login',
             const data = {
                 user: { id: user.id }
             }
-            const authToken = jwt.sign(data, JWT_SECRET_KEY)
+            const authToken = jwt.sign(data, process.env.JWT_SECRET_KEY)
             success = true;
             const { name } = user
             res.json({ success, authToken, name })
@@ -97,7 +97,8 @@ router.post('/getUser', fetchUser, async (req, res) => {
         const userId = req.user.id
         const user = await User.findById(userId).select("-password")
         res.send(user)
-    } catch (error) {
+    }
+    catch (error) {
         // console.log(error.message)
         res.status(500).send("internal server error");
     }

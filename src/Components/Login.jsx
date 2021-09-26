@@ -1,9 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { NoteContext } from '../Context/NoteStateContext'
+import { useContext } from 'react'
 
 const Login = ({ showAlert }) => {
     const history = useHistory()
+    const { setUsername } = useContext(NoteContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -25,6 +28,7 @@ const Login = ({ showAlert }) => {
             // save the token and redirect to the home page
             localStorage.setItem('token', json.authToken)
             localStorage.setItem('username', json.name)
+            setUsername(json.name)
             showAlert("login success", "success")
             history.push('/')
         }
