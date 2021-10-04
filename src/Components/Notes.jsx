@@ -11,7 +11,7 @@ const Notes = ({ showAlert }) => {
     const ref = useRef(null)
     const history = useHistory()
 
-    const [upNote, setUpNote] = useState({ title: '', description: '', tag: '' })
+    const [upNote, setUpNote] = useState({ title: '', description: '' })
 
     const context = useContext(NoteContext)
     const { notes, editNote, getAllNotes } = context

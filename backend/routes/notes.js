@@ -27,14 +27,14 @@ router.post('/addNote', fetchUser,
     ],
     async (req, res) => {
         try {
-            const { title, description, tag } = req.body
+            const { title, description, } = req.body
             // if there are errors , return bad request
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
             const note = new Notes({
-                title, description, tag, user: req.user.id
+                title, description, user: req.user.id
             })
             const saveNote = await note.save()
 
@@ -50,11 +50,10 @@ router.post('/addNote', fetchUser,
 router.patch('/updateNote/:id', fetchUser,
     async (req, res) => {
         try {
-            const { title, description, tag } = req.body
+            const { title, description } = req.body
             const newNote = {}
             if (title) { newNote.title = title }
             if (description) { newNote.description = description }
-            if (tag) { newNote.tag = tag }
 
             // Find the note and update
             let note = await Notes.findById(req.params.id)
