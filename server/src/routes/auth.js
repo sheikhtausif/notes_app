@@ -1,12 +1,11 @@
+require('dotenv').config()
 const express = require('express');
 const router = express.Router()
-const User = require('../models/User')
 const { body, validationResult } = require('express-validator');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const User = require('../models/User')
 var fetchUser = require('../middleware/fetchUser');
-require('dotenv').config()
-// const JWT_SECRET_KEY = 'programming'
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 
 // Route: 3 -  Create a user POST "/api/auth/createUser", No login required 
@@ -14,7 +13,7 @@ router.post('/createUser',
     [
         body('name', "Name can't be less than 4 characters").isLength({ min: 4 }),
         body('email', "Email should be unique").isEmail(),
-        body('password', "password is too short min 5 characters").isLength({ min: 3 }),
+        body('password', "password is too short min 3 characters").isLength({ min: 3 }),
     ],
     async (req, res) => {
         let success = false;
