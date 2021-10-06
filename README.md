@@ -4,7 +4,7 @@
 
 This is an individual project. In this app, users can add, update and delete only their notes.
 
-**To see the live site click the below link 👉🏼 ** https://note-app-neon.vercel.app
+**To see the live site click the below link** 👉🏼 https://note-app-neon.vercel.app
 
 ## Installing and Running
 
