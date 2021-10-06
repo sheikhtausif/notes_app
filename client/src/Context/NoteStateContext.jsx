@@ -7,7 +7,8 @@ import axios from 'axios'
 export const NoteContext = createContext()
 
 const NoteStateContext = ({ children }) => {
-    const host = "http://localhost:5000"
+    // const host = "http://localhost:5000"
+    const host = "https://note-app-02.herokuapp.com"
     const [notes, setNotes] = useState([])
     const [username, setUsername] = useState("")
 
