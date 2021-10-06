@@ -17,6 +17,7 @@ app.use(express.json())
 app.use('/api/auth', userController)
 app.use('/api/notes', noteController)
 
+// this code for production
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../../client/build')))
 
