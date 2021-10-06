@@ -68,8 +68,15 @@ npm run both
 </ul>
 
   
-## Some screenshots of the project
+## Some Screenshots of the App
+<p>Users can create an account</p>
 <img src="./screenshots/signup.png" />
+<br/>
+<p>Users can login in thier account</p>
 <img src="./screenshots/login.png" />
+<br/>
+<p>Users can see their notes</p>
 <img src="./screenshots/home.png" />
+<br/>
+<p>Users can update their notes</p>
 <img src="./screenshots/update.png" />
