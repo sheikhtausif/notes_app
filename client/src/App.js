@@ -1,10 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";
+import { Switch, Route, } from "react-router-dom";
 import NavBar from './Components/Navbar';
 import Notes from './Components/Notes';
 import Alert from './Components/Alert';
@@ -30,23 +26,21 @@ const App = () => {
 
     return (
         <>
-            <Router>
-                <NavBar />
-                <Alert alert={alert} />
-                <div className={screen < 800 ? "container w-90" : screen < 1200 ? "container w-80" : "container w-50"}>
-                    <Switch>
-                        <Route exact path="/">
-                            <Notes showAlert={showAlert} />
-                        </Route>
-                        <Route exact path="/login">
-                            <Login showAlert={showAlert} />
-                        </Route>
-                        <Route exact path="/signup">
-                            <SignUp showAlert={showAlert} />
-                        </Route>
-                    </Switch>
-                </div>
-            </Router>
+            <NavBar />
+            <Alert alert={alert} />
+            <div className={screen < 800 ? "container w-90" : screen < 1200 ? "container w-80" : "container w-50"}>
+                <Switch>
+                    <Route exact path="/">
+                        <Notes showAlert={showAlert} />
+                    </Route>
+                    <Route exact path="/login">
+                        <Login showAlert={showAlert} />
+                    </Route>
+                    <Route exact path="/signup">
+                        <SignUp showAlert={showAlert} />
+                    </Route>
+                </Switch>
+            </div>
         </>
     )
 }
