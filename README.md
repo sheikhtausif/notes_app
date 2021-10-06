@@ -2,10 +2,9 @@
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-This is an individual project. In this app, users add, update and delete only their notes.
+In this app users add, update and delete only their notes.
 
 **To see the live site click the below link.**
-
 
 
 ## Installing and Running
@@ -72,7 +71,7 @@ npm run both
 <p>Users can create an account</p>
 <img src="./screenshots/signup.png" />
 <br/>
-<p>Users can login in thier account</p>
+<p>Users can login in their account</p>
 <img src="./screenshots/login.png" />
 <br/>
 <p>Users can see their notes</p>
