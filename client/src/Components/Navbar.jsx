@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { NoteContext } from '../Context/NoteStateContext'
 import { useContext } from 'react'
-// import { Container, Button, Navbar, Nav } from 'react-bootstrap'
 
 
 const NavBar = () => {
@@ -17,8 +16,12 @@ const NavBar = () => {
         localStorage.setItem('username', '')
     }
 
+    const time = 1000 * 60 * 60 * 15
     useEffect(() => {
         setUsername(localStorage.getItem('username'))
+        setTimeout(() => {
+            handleLogOut()
+        }, time);
         // eslint-disable-next-line
     }, [])
 
