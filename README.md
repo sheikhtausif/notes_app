@@ -31,12 +31,12 @@ npm run both
 
 ## Built with
 <ul>
-  <li>React js</li>
+  <li>React Js</li>
   <li>Node Js</li>
-  <li>Mongo DB Atlas</li>
   <li>HTML</li>
   <li>CSS</li>
   <li>JavaScript</li>
+  <li>Mongo DB Atlas</li>
 </ul>
 
 ## Used libraries
@@ -69,7 +69,7 @@ npm run both
 
   
 ## Some screenshots of the project
-<img src="./screenshots/signup.png" />
-<img src="./screenshots/login.png" />
-<img src="./screenshots/home.png" />
-<img src="./screenshots/update.png" />
+<img src="screenshots/signup.png" />
+<img src="screenshots/login.png" />
+<img src="screenshots/home.png" />
+<img src="screenshots/update.png" />
