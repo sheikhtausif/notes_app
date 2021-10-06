@@ -6,7 +6,7 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var fetchUser = require('../middleware/fetchUser');
 require('dotenv').config()
-// const JWT_SECRET_KEY = 'programming'
+const JWT_SECRET_KEY = 'programming'
 
 // Route: 3 -  Create a user POST "/api/auth/createUser", No login required 
 router.post('/createUser',
@@ -40,7 +40,7 @@ router.post('/createUser',
             const data = {
                 user: { id: user.id }
             }
-            const authToken = jwt.sign(data, process.env.JWT_SECRET_KEY)
+            const authToken = jwt.sign(data, JWT_SECRET_KEY)
             success = true
             res.json({ success, authToken })
             // res.json(user)
@@ -80,7 +80,7 @@ router.post('/login',
             const data = {
                 user: { id: user.id }
             }
-            const authToken = jwt.sign(data, process.env.JWT_SECRET_KEY)
+            const authToken = jwt.sign(data, JWT_SECRET_KEY)
             success = true;
             const { name } = user
             res.json({ success, authToken, name })

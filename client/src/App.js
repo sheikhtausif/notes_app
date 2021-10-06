@@ -1,14 +1,12 @@
 import React from 'react'
-import { useState } from 'react'
-import './App.css';
+import { useState, useEffect } from 'react'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
 import NavBar from './Components/Navbar';
-import Home from './Components/Home';
-import About from './Components/About';
+import Notes from './Components/Notes';
 import Alert from './Components/Alert';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
@@ -16,6 +14,7 @@ import SignUp from './Components/SignUp';
 const App = () => {
 
     const [alert, setAlert] = useState(null)
+    const [screen, setScreen] = useState(window.screen.width)
 
     const showAlert = (message, type) => {
         setAlert({ msg: message, type: type })
@@ -24,19 +23,20 @@ const App = () => {
         }, 2000);
     }
 
+    useEffect(() => {
+        setScreen(window.screen.width)
+    }, [screen])
+
+
     return (
         <>
-
             <Router>
                 <NavBar />
                 <Alert alert={alert} />
-                <div className="container w-50">
+                <div className={screen < 800 ? "container w-90" : screen < 1200 ? "container w-80" : "container w-50"}>
                     <Switch>
                         <Route exact path="/">
-                            <Home showAlert={showAlert} />
-                        </Route>
-                        <Route exact path="/about">
-                            <About />
+                            <Notes showAlert={showAlert} />
                         </Route>
                         <Route exact path="/login">
                             <Login showAlert={showAlert} />

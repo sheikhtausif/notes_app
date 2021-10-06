@@ -44,7 +44,7 @@ const Login = ({ showAlert }) => {
 
     return (
         <div className="container mt-3">
-            <h2 className="mb-3">Login to continue</h2>
+            <h2 className="mb-3">Login</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
