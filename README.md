@@ -69,7 +69,7 @@ npm run both
 
   
 ## Some screenshots of the project
-<img src="screenshots/signup.png" />
-<img src="screenshots/login.png" />
-<img src="screenshots/home.png" />
-<img src="screenshots/update.png" />
+<img src="./screenshots/signup.png" />
+<img src="./screenshots/login.png" />
+<img src="./screenshots/home.png" />
+<img src="./screenshots/update.png" />
