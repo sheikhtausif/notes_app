@@ -1,11 +1,11 @@
 require('dotenv').config()
-const express = require('express');
+const express = require('express')
+const { body, validationResult } = require('express-validator')
 const router = express.Router()
-const { body, validationResult } = require('express-validator');
-var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
-const User = require('../models/User')
-var fetchUser = require('../middleware/fetchUser');
+var bcrypt = require('bcryptjs')
+var jwt = require('jsonwebtoken')
+const User = require('../models/user.model')
+var fetchUser = require('../middleware/authentication');
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 
 // Route: 3 -  Create a user POST "/api/auth/createUser", No login required 
@@ -25,7 +25,7 @@ router.post('/createUser',
 
         // check user exists with this email
         try {
-            let user = await User.findOne({ email: req.params.email });
+            let user = await User.findOne({ email: req.body.email });
             if (user) {
                 success = false
                 return res.status(400).json({ success, error: 'User already exists' })
@@ -47,7 +47,7 @@ router.post('/createUser',
         }
         catch (error) {
             // console.log(error.message)
-            res.status(500).send("error occured")
+            res.status(500).send("error occurred")
         }
 
     })

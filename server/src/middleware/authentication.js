@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 
 
-const fetchUser = (req, res, next) => {
+const authentication = (req, res, next) => {
     const token = req.header('auth-token')
     if (!token) {
         res.status(401).send({ error: 'invalid token' })
@@ -17,4 +17,4 @@ const fetchUser = (req, res, next) => {
     }
 }
 
-module.exports = fetchUser
+module.exports = authentication

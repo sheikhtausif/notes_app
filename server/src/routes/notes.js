@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router()
-const Notes = require('../models/Notes')
-var fetchUser = require('../middleware/fetchUser');
+const Notes = require('../models/notes.model')
+var authentication = require('../middleware/authentication');
 const { body, validationResult } = require('express-validator');
 
 
-
 // Route: 1 -  get all notes of the user GET "/api/notes/allNotes", login required 
-router.get('/allNotes', fetchUser, async (req, res) => {
+router.get('/allNotes', authentication, async (req, res) => {
     try {
         const notes = await Notes.find({ user: req.user.id })
         res.json(notes)
@@ -19,7 +18,7 @@ router.get('/allNotes', fetchUser, async (req, res) => {
 })
 
 // Route: 2 -  add a note POST "/api/notes/addNote", login required 
-router.post('/addNote', fetchUser,
+router.post('/addNote', authentication,
     [
         body('title', "title is too short").isLength(1),
         body('description', "description is too short").isLength(1),
@@ -47,7 +46,7 @@ router.post('/addNote', fetchUser,
     })
 
 // Route: 3 -  update an exist note PATCH or PUT "/api/notes/", login required 
-router.patch('/updateNote/:id', fetchUser,
+router.patch('/updateNote/:id', authentication,
     async (req, res) => {
         try {
             const { title, description } = req.body
@@ -74,7 +73,7 @@ router.patch('/updateNote/:id', fetchUser,
     })
 
 // Route: 4 -  delete an exist note DELETE "/api/notes/", login required 
-router.delete('/deleteNote/:id', fetchUser,
+router.delete('/deleteNote/:id', authentication,
     async (req, res) => {
         try {
             // Find the note and delete

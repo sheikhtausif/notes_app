@@ -5,6 +5,8 @@ import { NoteContext } from '../Context/NoteStateContext'
 import { useContext } from 'react'
 
 const Login = ({ showAlert }) => {
+    // const host = "http://localhost:5000"
+    const host = "https://notes-app-9ack.onrender.com"
     const history = useHistory()
     const { setUsername } = useContext(NoteContext)
 
@@ -14,31 +16,37 @@ const Login = ({ showAlert }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const response = await fetch(`https://note-app-02.herokuapp.com/api/auth/login`, {
-            method: "POST",
-            headers: {
-                'Content-Type': "application/json",
-            },
-            body: JSON.stringify({ email, password })
-        })
-        const json = await response.json()
-        // console.log('token:', json)
+        if (email && password) {
 
-        if (json.success) {
-            // save the token and redirect to the home page
-            localStorage.setItem('token', json.authToken)
-            let firstName = ""
-            for (let i = 0; i < json.name.length; i++) {
-                if (json.name[i] === " ") break;
-                else firstName += json.name[i]
+            const response = await fetch(`${host}/api/auth/login`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json",
+                },
+                body: JSON.stringify({ email, password })
+            })
+            const json = await response.json()
+            // console.log('token:', json)
+
+            if (json.success) {
+                // save the token and redirect to the home page
+                localStorage.setItem('token', json.authToken)
+                let firstName = ""
+                for (let i = 0; i < json.name.length; i++) {
+                    if (json.name[i] === " ") break;
+                    else firstName += json.name[i]
+                }
+                localStorage.setItem('username', firstName)
+                setUsername(firstName)
+                showAlert("login success", "success")
+                history.push('/')
             }
-            localStorage.setItem('username', firstName)
-            setUsername(firstName)
-            showAlert("login success", "success")
-            history.push('/')
+            else {
+                showAlert("invalid credentials", "danger")
+            }
         }
         else {
-            showAlert("invalid credentials", "danger")
+            showAlert("Please fill all the data", 'danger')
         }
     }
 

@@ -8,7 +8,7 @@ export const NoteContext = createContext()
 
 const NoteStateContext = ({ children }) => {
     // const host = "http://localhost:5000"
-    const host = "https://note-app-02.herokuapp.com"
+    const host = "https://notes-app-9ack.onrender.com"
     const [notes, setNotes] = useState([])
     const [username, setUsername] = useState("")
 
@@ -34,7 +34,7 @@ const NoteStateContext = ({ children }) => {
                 'auth-token': localStorage.getItem('token')
             },
         })
-        setNotes([...notes, data])
+        setNotes([data, ...notes])
     }
 
 

@@ -9,9 +9,40 @@ const userController = require('./routes/auth')
 const noteController = require('./routes/notes')
 
 const app = express()
-
 app.use(cors())
 app.use(express.json())
+
+// Google login
+// const passport = require("./configs/passport");
+
+// app.use(passport.initialize());
+
+// passport.serializeUser(function (user, done) {
+//     done(null, user);
+// });
+// passport.deserializeUser(function (user, done) {
+//     done(null, user)
+// });
+
+app.get("/", function (req, res) {
+    res.send("API is running...");
+})
+
+// app.get('/auth/google',
+//     passport.authenticate('google', {
+//         scope:
+//             ['email', 'profile']
+//     })
+// );
+
+// app.get(
+//     "/auth/google/callback",
+//     passport.authenticate("google", { failureRedirect: "/" }),
+//     function (req, res) {
+//         return res.status(201).json({ status: "success", user: req.user });
+//     }
+// );
+
 
 // ! Routes
 app.use('/api/auth', userController)
@@ -31,8 +62,8 @@ else {
     })
 }
 
-app.listen(PORT, async () => {
-    await connectToMongo()
+app.listen(PORT, () => {
+    connectToMongo()
     console.log('connect has been established with atlas')
     console.log(`Notebook App backend listening at http://localhost:${PORT}`)
 })

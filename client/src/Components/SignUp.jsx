@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 const SignUp = ({ showAlert }) => {
+    // const host = "http://localhost:5000"
+    const host = "https://notes-app-9ack.onrender.com"
     const history = useHistory()
     const [userData, setUserData] = useState({ name: "", email: "", password: "" })
 
@@ -12,24 +14,29 @@ const SignUp = ({ showAlert }) => {
         e.preventDefault()
         const { name, email, password } = userData
 
-        const response = await fetch(`https://note-app-02.herokuapp.com/api/auth/createUser`, {
-            method: "POST",
-            headers: {
-                'Content-Type': "application/json",
-            },
-            body: JSON.stringify({ name, email, password })
-        })
-        const json = await response.json()
-        // console.log('token:', json)
+        if (name && email && password) {
+            const response = await fetch(`${host}/api/auth/createUser`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json",
+                },
+                body: JSON.stringify({ name, email, password })
+            })
+            const json = await response.json()
+            // console.log('token:', json)
 
-        if (json.success) {
-            // save the token and redirect to the home page
-            // localStorage.setItem('token', json.authToken)
-            history.push('/login')
-            showAlert("account created successfully", 'success')
+            if (json.success) {
+                // save the token and redirect to the home page
+                // localStorage.setItem('token', json.authToken)
+                history.push('/login')
+                showAlert("account created successfully", 'success')
+            }
+            else {
+                showAlert("user already exists", 'danger')
+            }
         }
         else {
-            showAlert("user already exists", 'danger')
+            showAlert("Please fill all the data", 'danger')
         }
     }
 
